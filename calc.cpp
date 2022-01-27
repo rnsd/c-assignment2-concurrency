@@ -22,8 +22,6 @@
 using namespace std;
 
 int parseMaxValueToTestFor(const char *input) {
-
-
     int result = 0;
     try {
         result = stoi(input);
@@ -31,9 +29,23 @@ int parseMaxValueToTestFor(const char *input) {
             cerr << "Number '" + to_string(result) + "' should be larger than 1" << endl;
         }
     } catch (invalid_argument exception) {
-        string s;
-        s = *input;
-        cerr << "Expected a number, but got '" << s << "'" << endl;
+        cerr << "Expected a number, but got '" << input << "'" << endl;
+    }
+    return result;
+}
+
+int parseNumberOfThreads(const char *input) {
+    if (input == nullptr || input[0] == '\0')
+        return 1;
+
+    int result = 0;
+    try {
+        result = stoi(input);
+        if (result <= 1) {
+            cerr << "Number of threads is '" + to_string(result) + "', but value should be larger than 0" << endl;
+        }
+    } catch (invalid_argument exception) {
+        cerr << "Expected a number, but got '" << input << "'" << endl;
     }
     return result;
 }
@@ -48,15 +60,16 @@ bool isPrime(int value) {
 
 string toCommaSeparatedString(vector<int> values) {
     std::ostringstream oss;
-    if(!values.empty()) {
+    if (!values.empty()) {
         std::copy(values.begin(), std::prev(values.end()), std::ostream_iterator<int>(oss, ", "));
         oss << values.back();
     }
     return oss.str();
 }
 
-string calculatePrimes(char *max) {
+string calculatePrimes(char *max, char *nrOfThreads) {
     int maxValueToTestFor = parseMaxValueToTestFor(max);
+    int numberOfThreads = parseNumberOfThreads(nrOfThreads);
 
     vector<int> primes;
     for (int i = 2; i <= maxValueToTestFor; i++) {

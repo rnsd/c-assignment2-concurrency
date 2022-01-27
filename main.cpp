@@ -20,7 +20,7 @@
 // although it is good habit, you don't have to type 'std::' before many objects by including this line
 using namespace std;
 
-extern string calculatePrimes(char *max) ;
+extern string calculatePrimes(char *max, char *string1);
 
 int main(int argc, char *argv[]) {
     cout << "argc = " + to_string(argc) << endl;
@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-    cout << calculatePrimes(argv[1]) << endl;
+    cout << calculatePrimes(argv[1], argv[2]) << endl;
     return 0;
 }
 
